@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "General Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+@import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap');
+
+@layer base {
+  body {
+    @apply bg-black text-white font-sans;
+  }
+}
+
+@layer components {
+  .text-gradient {
+    background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .button-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    filter: blur(2px);
+  }
+
+  .bg-grid {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  }
+
+  .bg-titanium {
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .bg-titanium::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(to right, rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 120px 120px;
+    opacity: 0.2;
+    pointer-events: none;
+    mask-image: radial-gradient(circle at center, black, transparent 90%);
+    z-index: 0;
+  }
+
+  .spaceship-panel {
+    position: relative;
+    background: linear-gradient(145deg, #1e1e1e, #141414);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 
+      inset 1px 1px 0 rgba(255,255,255,0.05),
+      inset -1px -1px 0 rgba(0,0,0,0.2);
+  }
+
+  .spaceship-panel::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 4px;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    box-shadow: 
+      calc(100% - 12px) 0 0 rgba(255,255,255,0.1),
+      0 calc(100% - 12px) 0 rgba(255,255,255,0.1),
+      calc(100% - 12px) calc(100% - 12px) 0 rgba(255,255,255,0.1);
+  }
+
+  .border-silver {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.01), inset 0 0 10px rgba(255, 255, 255, 0.01);
+  }
+
+  .text-silver {
+    background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(400%); }
+  }
+  .animate-scanline {
+    animation: scanline 4s linear infinite;
+  }
+
+  /* Scroll-triggered Section Title Animations */
+  .box {
+    /* Container for the scroll trigger */
+    display: block;
+    width: 100%;
+  }
+
+  .text-pop {
+    display: inline-block;
+    background-image: linear-gradient(
+      90deg,
+      #ffffff 0%,
+      #94a3b8 25%,
+      #ffffff 50%,
+      #94a3b8 75%,
+      #ffffff 100%
+    );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    transition: color 0.3s ease;
+  }
+
+  .text-pop-blue {
+    background-image: linear-gradient(
+      90deg,
+      #ffffff 0%,
+      #3b82f6 25%,
+      #60a5fa 50%,
+      #3b82f6 75%,
+      #ffffff 100%
+    );
+  }
+
+  .text-pop-emerald {
+    background-image: linear-gradient(
+      90deg,
+      #ffffff 0%,
+      #10b981 25%,
+      #34d399 50%,
+      #10b981 75%,
+      #ffffff 100%
+    );
+  }
+
+  .text-pop-purple {
+    background-image: linear-gradient(
+      90deg,
+      #ffffff 0%,
+      #a855f7 25%,
+      #c084fc 50%,
+      #a855f7 75%,
+      #ffffff 100%
+    );
+  }
+
+  .text-pop-orange {
+    background-image: linear-gradient(
+      90deg,
+      #ffffff 0%,
+      #f97316 25%,
+      #fb923c 50%,
+      #f97316 75%,
+      #ffffff 100%
+    );
+  }
+
+  @supports (animation-timeline: view()) {
+    .box {
+      animation: trigger steps(1) both, fade linear both;
+      animation-timeline: view();
+      animation-range: entry 80% contain 40%;
+    }
+
+    .text-pop {
+      animation: pop-back 500ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @container style(--animate: true) {
+      .text-pop {
+        animation: 
+          pop 1200ms linear(
+            0, 0.186 2.1%, 0.778 7.2%, 1.027 9.7%, 1.133, 1.212, 1.264, 1.292 15.4%,
+            1.296, 1.294, 1.285, 1.269 18.9%, 1.219 20.9%, 1.062 25.8%, 0.995 28.3%,
+            0.944 31.1%, 0.93, 0.921, 0.92 35.7%, 0.926, 0.94 39.7%, 1.001 47%, 1.014,
+            1.021 52.4%, 1.02 56.4%, 1 65.5%, 0.994 70.7%, 1.001 88.4%, 1
+          ) forwards,
+          text-gradient 20s linear infinite;
+      }
+    }
+  }
+
+  @keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes trigger {
+    to { --animate: true; }
+  }
+
+  @keyframes pop {
+    from { scale: 0.5; }
+    to { scale: 1.001; }
+  }
+
+  @keyframes text-gradient {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+
+  @keyframes pop-back {
+    from { scale: 1.001; }
+    to { 
+      color: inherit; 
+      scale: 0.5; 
+    }
+  }
+}
+
